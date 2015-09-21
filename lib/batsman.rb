@@ -1,46 +1,34 @@
 class Batsman 
 
-	def initialize (name)
-		@batsman_name=name
+	def initialize(name)
+		@name = name
+		@spin_skill_level = rand 5
+		@bounce_skill_level = rand 5  
 	end
 
-	def play (ball)
+	attr_reader :name
 
-		if ball == "spin"       # 5 lines with many if-else is tough. What if we had 10 types of balls?
-			outcome = playSpin
-
-		elsif ball == "bouncer"
-			outcome = playBouncer
+	def play(ball)
+        outcome = Outcome.new 
+		if outcome_is_out? ball
+			outcome.mark_as_out
+		else 
+			outcome.score = rand(7)   
 		end
-		outcome.to_s
-
+		outcome
 	end 
 
-	def playSpin
+	private
 
-		is_out = rand(2) # Batsman is not good at playing a spin ball. 
-
-		if is_out == 1
-			"out"
-		else make_runs
+	def skill_level(ball)
+		case ball
+		when "spin" then @spin_skill_level
+		when "bouncer" then @bounce_skill_level
 		end
-			
 	end	
 
-	def playBouncer
-
-		is_out = rand(5) # Batsman is good at playing a bouncer. 
-
-		if is_out == 1
-			"out"
-		else make_runs
-		end
-		
-	end
-
-
-	def make_runs
-		score = rand(7)
+	def outcome_is_out?(ball)
+		rand(skill_level(ball)) == 1
 	end
 
 end 

@@ -1,5 +1,3 @@
-
-
 class Bowler 
 
 	def initialize (name)
@@ -18,4 +16,3 @@ class Bowler
 
 	end
 end
-
